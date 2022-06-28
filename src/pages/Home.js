@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from '../axios';
 import WorkoutDetails from '../components/WorkoutDetails';
+import WorkoutForm from '../components/WorkoutForm';
 
 function Home() {
 
@@ -33,6 +34,8 @@ function Home() {
                  createdAt={workout.createdAt} />
             ))}
         </WorkoutsContainer>
+
+        <WorkoutForm />
     </Container>
   )
 }

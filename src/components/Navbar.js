@@ -8,7 +8,7 @@ function Navbar() {
     <Header>
         <Container>
             <Link to={"/"}>
-                <h1>Workouts Body</h1>
+                <h1>My Workouts</h1>
             </Link>
         </Container>
     </Header>
@@ -18,7 +18,11 @@ function Navbar() {
 export default Navbar;
 
 const Header = styled.header`
+    
     background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 `;
 
 
