@@ -1,7 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from '../axios';
+import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
 
-function WorkoutDetails({ title, load, reps, createdAt }) {
+function WorkoutDetails({ id, title, load, reps, createdAt }) {
+
+  const { dispatch } = UseWorkoutsContext();
+
+  const handleClick = async () => {
+
+    await axios.delete(`/api/workouts/${id}`)
+    .then((response) => {
+
+        if(response.status === 200){
+
+            dispatch({
+                type: "DELETE_WORKOUT",
+                payload: response.data
+            })
+        }
+    })
+  } 
+  
   return (
     <WorkoutDetailsContainer>
 
@@ -9,6 +29,7 @@ function WorkoutDetails({ title, load, reps, createdAt }) {
         <p><strong>Load (kg): </strong>{load}</p>
         <p><strong>Reps: </strong>{reps}</p>
         <p>{ new Date(createdAt).toDateString() }</p>
+        <span onClick={handleClick}>Delete</span>
 
     </WorkoutDetailsContainer>
   )
@@ -39,16 +60,21 @@ const WorkoutDetailsContainer = styled.div`
         color: #555;
     }
 
+    > span {
 
+        position: absolute;
+        top: 20px;
+        right: 20px;        
+        background: #f1f1f1;
+        padding: 10px;
+        border-radius: 50%;
+        color: #333;
+        transition: 0.5s ease-in;
+
+        :hover{
+            cursor: pointer;
+            background: #ddd;
+            transition: 0.5s ease-out;
+        }
+    }
 `;
-
-/* 
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    background: #f1f1f1;
-    padding: 6px;
-    border-radius: 50%;
-    color: #333;
-*/

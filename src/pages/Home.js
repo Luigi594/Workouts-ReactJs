@@ -1,19 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import axios from '../axios';
 import WorkoutDetails from '../components/WorkoutDetails';
 import WorkoutForm from '../components/WorkoutForm';
+import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
 
 function Home() {
 
-  const [workouts, setWorkouts] = useState([]);
+  const { workouts, dispatch } = UseWorkoutsContext();
 
   useEffect(() => {
 
     async function getWorkouts(){
 
-        const request = await axios.get("/api/workouts");
-        setWorkouts(request.data);
+        await axios.get("/api/workouts")
+        .then((response) => {
+
+          if(response.status === 200){
+
+            dispatch({
+              type: 'SET_WORKOUTS',
+              payload: response.data
+            })
+          }
+        })
     }
 
     getWorkouts();
@@ -28,6 +38,7 @@ function Home() {
 
                 <WorkoutDetails
                  key={workout._id} 
+                 id={workout._id}
                  title={workout.title}
                  load={workout.load}
                  reps={workout.reps}

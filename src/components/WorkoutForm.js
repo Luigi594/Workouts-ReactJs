@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from '../axios';
+import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
 
 function WorkoutForm() {
 
+  const { workouts, dispatch } = UseWorkoutsContext();
   const [title, setTitle] = useState('');
   const [load, setLoad] = useState('');
   const [reps, setReps] = useState('');
@@ -25,6 +27,11 @@ function WorkoutForm() {
       setLoad('');
       setReps('');
       setError('');
+
+      dispatch({
+        type: 'CREATE_WORKOUTS',
+        payload: response.data
+      })
     })
     .catch((err) => {
       
@@ -78,6 +85,7 @@ const FormContainer = styled.div`
   background-color: #E5E7EB;
   padding: 20px;
   border-radius: 5px;
+  height: 540px;
 
   > form > input{
 
