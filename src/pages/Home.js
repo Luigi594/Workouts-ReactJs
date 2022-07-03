@@ -29,7 +29,9 @@ function Home() {
 
     getWorkouts();
 
-  }, [])  
+  }, [dispatch]) 
+  
+  
   return (
     <Container>
         <WorkoutsContainer>

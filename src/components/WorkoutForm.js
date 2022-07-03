@@ -58,12 +58,14 @@ function WorkoutForm() {
           <label>Exercise Title: </label>
           <input 
               type="text"
+              placeholder='Add the title workout'
               value={title}
               onChange={(e) => setTitle(e.target.value)} />
 
           <label>Load (in Kg): </label>
           <input 
               type="number"
+              placeholder='Add the amount of load'
               value={load}
               min="0"
               onChange={(e) => setLoad(e.target.value)} />
@@ -71,6 +73,7 @@ function WorkoutForm() {
           <label>Reps: </label>
           <input 
               type="number"
+              placeholder='Add the amount of reps'
               value={reps}
               min="0"
               onChange={(e) => setReps(e.target.value)} />
@@ -106,7 +109,7 @@ const FormContainer = styled.div`
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
-
+    outline: none;
   }  
 
   > form > label, input{
