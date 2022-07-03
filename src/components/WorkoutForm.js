@@ -5,7 +5,7 @@ import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
 
 function WorkoutForm() {
 
-  const { workouts, dispatch } = UseWorkoutsContext();
+  const { dispatch } = UseWorkoutsContext();
   const [title, setTitle] = useState('');
   const [load, setLoad] = useState('');
   const [reps, setReps] = useState('');
@@ -37,7 +37,14 @@ function WorkoutForm() {
       
       if(err.response.status === 400){
 
-        setError(err.response.data.error);
+        if(err.response.data.error.length === 4){
+
+          setError("All fields are required");
+        }
+        else{
+          setError(err.response.data.error);
+        }
+
       }
     })
     
@@ -58,19 +65,21 @@ function WorkoutForm() {
           <input 
               type="number"
               value={load}
+              min="0"
               onChange={(e) => setLoad(e.target.value)} />
 
           <label>Reps: </label>
           <input 
               type="number"
               value={reps}
+              min="0"
               onChange={(e) => setReps(e.target.value)} />
 
-          <button onClick={CreateWorkout}>Create Workout</button>
+          <button onClick={CreateWorkout}>Add Workout</button>
 
           {error && (
             <ErrorContainer>
-              <h4>{error}</h4>
+              <p>{error}</p>
             </ErrorContainer>
           )}
       </form>
@@ -83,6 +92,7 @@ export default WorkoutForm;
 const FormContainer = styled.div`
 
   background-color: #E5E7EB;
+  max-height: 400px;
   padding: 20px;
   border-radius: 5px;
   height: 540px;
@@ -124,8 +134,11 @@ const ErrorContainer = styled.div`
   color: var(--error);
   border-radius: 4px;
   margin: 20px 0;
+  margin-top: 30px;
 
-  > h4{
+  > p{
+
+    font-size: 14px;
     text-align: center;
   }
 `;

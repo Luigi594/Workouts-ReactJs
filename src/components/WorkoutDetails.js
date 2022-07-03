@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import axios from '../axios';
 import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-function WorkoutDetails({ id, title, load, reps, createdAt }) {
+const  WorkoutDetails = forwardRef(({ id, title, load, reps, createdAt }, ref) => {
 
   const { dispatch } = UseWorkoutsContext();
 
@@ -23,17 +24,19 @@ function WorkoutDetails({ id, title, load, reps, createdAt }) {
   } 
   
   return (
-    <WorkoutDetailsContainer>
+    <WorkoutDetailsContainer ref={ref}>
 
         <h4>{title}</h4>
         <p><strong>Load (kg): </strong>{load}</p>
         <p><strong>Reps: </strong>{reps}</p>
-        <p>{ new Date(createdAt).toDateString() }</p>
-        <span onClick={handleClick}>Delete</span>
+        <p>{ formatDistanceToNow(new Date(createdAt), { addSuffix: true }) }</p>
+        <span onClick={handleClick} className="material-symbols-outlined">
+            Delete
+        </span>
 
     </WorkoutDetailsContainer>
   )
-}
+})
 
 export default WorkoutDetails;
 

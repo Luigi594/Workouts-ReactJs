@@ -4,6 +4,7 @@ import axios from '../axios';
 import WorkoutDetails from '../components/WorkoutDetails';
 import WorkoutForm from '../components/WorkoutForm';
 import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
+import FlipMove from 'react-flip-move';
 
 function Home() {
 
@@ -33,17 +34,20 @@ function Home() {
     <Container>
         <WorkoutsContainer>
             
-            {/** if we have workouts map through  it */}
-            {workouts && workouts.map((workout) => (
+            <FlipMove>
 
-                <WorkoutDetails
-                 key={workout._id} 
-                 id={workout._id}
-                 title={workout.title}
-                 load={workout.load}
-                 reps={workout.reps}
-                 createdAt={workout.createdAt} />
-            ))}
+              {/** if we have workouts map through  it */}
+              {workouts && workouts.map((workout) => (
+
+                  <WorkoutDetails
+                  key={workout._id} 
+                  id={workout._id}
+                  title={workout.title}
+                  load={workout.load}
+                  reps={workout.reps}
+                  createdAt={workout.createdAt} />
+              ))}
+            </FlipMove>
         </WorkoutsContainer>
 
         <WorkoutForm />
