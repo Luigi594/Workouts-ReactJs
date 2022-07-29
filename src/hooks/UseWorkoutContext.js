@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { WorkoutsContext } from '../context/WorkoutContext';
 
-export const UseWorkoutsContext = () => {
+export const useWorkoutsContext = () => {
 
     // this will help to consume my context whether the action is
     const context = useContext(WorkoutsContext);

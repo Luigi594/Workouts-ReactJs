@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import axios from '../axios';
-import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
+import { useWorkoutsContext } from '../hooks/useWorkoutContext';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const  WorkoutDetails = forwardRef(({ id, title, load, reps, createdAt }, ref) => {
 
-  const { dispatch } = UseWorkoutsContext();
+  const { dispatch } = useWorkoutsContext();
 
   const handleClick = async () => {
 

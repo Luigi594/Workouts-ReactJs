@@ -10,6 +10,10 @@ function Navbar() {
             <Link to={"/"}>
                 <h1>My Workouts</h1>
             </Link>
+            <NavContainer>
+                <Link to={"/login"}>Login</Link>
+                <Link to={"/signup"}>Signup</Link>
+            </NavContainer>
         </Container>
     </Header>
   )
@@ -41,3 +45,15 @@ const Container = styled.div`
         text-decoration: none;
     }
 `;
+
+const NavContainer = styled.nav`
+
+    display: flex;
+    align-items: center;
+
+    > a{
+        margin-left: 10px;
+        text-decoration: none;
+        color: var(--primary);
+    }
+`

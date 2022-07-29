@@ -1,6 +1,8 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import styled from 'styled-components';
 
@@ -12,6 +14,8 @@ function App() {
       <PagesContainer>
         <Routes>  
           <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
         </Routes>
       </PagesContainer>
     </div>

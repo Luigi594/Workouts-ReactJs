@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from '../axios';
-import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
+import { useWorkoutsContext } from '../hooks/useWorkoutContext';
 
 function WorkoutForm() {
 
-  const { dispatch } = UseWorkoutsContext();
+  const { dispatch } = useWorkoutsContext();
   const [title, setTitle] = useState('');
   const [load, setLoad] = useState('');
   const [reps, setReps] = useState('');
@@ -94,7 +94,6 @@ export default WorkoutForm;
 
 const FormContainer = styled.div`
 
-  background-color: #E5E7EB;
   max-height: 400px;
   padding: 20px;
   border-radius: 5px;

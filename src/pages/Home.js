@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import axios from '../axios';
 import WorkoutDetails from '../components/WorkoutDetails';
 import WorkoutForm from '../components/WorkoutForm';
-import { UseWorkoutsContext } from '../hooks/UseWorkoutContext';
+import { useWorkoutsContext } from '../hooks/useWorkoutContext';
 import FlipMove from 'react-flip-move';
 
 function Home() {
 
-  const { workouts, dispatch } = UseWorkoutsContext();
+  const { workouts, dispatch } = useWorkoutsContext();
 
   useEffect(() => {
 
@@ -42,12 +42,12 @@ function Home() {
               {workouts && workouts.map((workout) => (
 
                   <WorkoutDetails
-                  key={workout._id} 
-                  id={workout._id}
-                  title={workout.title}
-                  load={workout.load}
-                  reps={workout.reps}
-                  createdAt={workout.createdAt} />
+                    key={workout._id} 
+                    id={workout._id}
+                    title={workout.title}
+                    load={workout.load}
+                    reps={workout.reps}
+                    createdAt={workout.createdAt} />
               ))}
             </FlipMove>
         </WorkoutsContainer>
