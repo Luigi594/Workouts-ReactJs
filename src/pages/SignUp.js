@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components';
 import { useState } from 'react';
-import { UserSignUp } from '../hooks/useSignUp'
+import { useSignup } from '../hooks/useSignUp'
 
 function SignUp() {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signup, isLoading, error } = UserSignUp();
+  const { signup, isLoading, error } = useSignup();
 
   const handleSubmit = async (e) => {
 
@@ -15,6 +15,9 @@ function SignUp() {
     
     // using my hook to signup the user
     await signup(email, password)
+
+    setEmail('');
+    setPassword('');
   }
 
   return (

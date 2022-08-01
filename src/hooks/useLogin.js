@@ -2,18 +2,18 @@ import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import axios from '../axios';
 
-export const useSignup = ()  => {
+export const useLogin = ()  => {
 
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const { dispatch } = useAuthContext();
 
-    const signup = async (email, password) => {
+    const login = async (email, password) => {
 
         setIsLoading(true);
         setError('');
 
-        await axios.post('/api/user/signup', {
+        await axios.post('/api/user/login', {
             email: email,
             password: password
         })
@@ -40,5 +40,5 @@ export const useSignup = ()  => {
         })
     }
 
-    return { signup, isLoading, error }
+    return { login, isLoading, error }
 }

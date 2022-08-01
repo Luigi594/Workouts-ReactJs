@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
+import { useLogin } from '../hooks/useLogin';
 
 const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { login, error, isLoading } = useLogin()
 
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-
-    console.log(email, password);
+    await login(email, password);
+    setEmail('');
+    setPassword('');
   }
 
   return (
@@ -33,7 +36,13 @@ const Login = () => {
                 value={password}
             />
 
-            <button onClick={handleSubmit}>Log in</button>
+            <button disabled={isLoading} onClick={handleSubmit}>Log in</button>
+
+            {error && (
+                <ErrorContainer>
+                    <p>{error}</p>
+                </ErrorContainer>
+            )}
         </form>
         
     </LoginContainer>
@@ -86,4 +95,21 @@ const LoginContainer = styled.div`
         cursor: pointer;
         border: 1px solid var(--primary);
     }
-`
+`;
+
+const ErrorContainer = styled.div`
+
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+  margin-top: 30px;
+
+  > p{
+
+    font-size: 14px;
+    text-align: center;
+  }
+`;

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-export const UseAuthContext = () => {
+export const useAuthContext = () => {
 
     // this will help to consume my context whether the action is
     const context = useContext(AuthContext);
