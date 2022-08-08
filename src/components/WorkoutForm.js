@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from '../axios';
 import { useWorkoutsContext } from '../hooks/useWorkoutContext';
+import { useAuthContext } from '../hooks/useAuthContext'
 
 function WorkoutForm() {
 
   const { dispatch } = useWorkoutsContext();
+  const { user } = useAuthContext();
   const [title, setTitle] = useState('');
   const [load, setLoad] = useState('');
   const [reps, setReps] = useState('');
@@ -15,11 +17,24 @@ function WorkoutForm() {
 
     e.preventDefault();
 
+    // if we don't have a user, don't run the rest of the
+    // function
+    if(!user){
+
+      setError('You must be logged in')
+      return
+    }
+
     await axios.post("/api/workouts", {
 
         title: title,
         load: load,
         reps: reps
+    }, 
+    {
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
     })
     .then((response) => {
       

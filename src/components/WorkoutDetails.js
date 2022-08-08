@@ -2,15 +2,25 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import axios from '../axios';
 import { useWorkoutsContext } from '../hooks/useWorkoutContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const  WorkoutDetails = forwardRef(({ id, title, load, reps, createdAt }, ref) => {
 
   const { dispatch } = useWorkoutsContext();
+  const { user } = useAuthContext();
 
   const handleClick = async () => {
 
-    await axios.delete(`/api/workouts/${id}`)
+    if(!user){
+        return
+    }
+
+    await axios.delete(`/api/workouts/${id}`,{
+        headers:{
+            'Authorization': `Bearer ${user.token}`
+        }
+    })
     .then((response) => {
 
         if(response.status === 200){

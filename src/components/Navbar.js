@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 function Navbar() {
   
   const { logout } = useLogout();
+  const { user } = useAuthContext();
 
   const handleClick = () => {
     logout()
@@ -18,11 +20,18 @@ function Navbar() {
                 <h1>My Workouts</h1>
             </Link>
             <NavContainer>
-                <LogoutButton>
-                    <button onClick={handleClick}>Logout</button>
-                </LogoutButton>
-                <Link to={"/login"}>Login</Link>
-                <Link to={"/signup"}>Signup</Link>
+                {user ? (
+
+                    <LogoutButton>
+                        <span>{user?.email}</span>
+                        <button onClick={handleClick}>Logout</button>
+                    </LogoutButton>
+                ):(
+                    <>
+                        <Link to={"/login"}>Login</Link>
+                        <Link to={"/signup"}>Signup</Link>
+                    </>
+                )}
             </NavContainer>
         </Container>
     </Header>
@@ -69,6 +78,10 @@ const NavContainer = styled.nav`
 `
 
 const LogoutButton = styled.div`
+
+    > span{
+        margin-right: 15px;
+    }
 
     > button{
 

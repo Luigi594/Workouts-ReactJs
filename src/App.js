@@ -5,15 +5,21 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import styled from 'styled-components';
+import { useAuthContext } from './hooks/useAuthContext'
 
 function App() {
+
+  const { user } = useAuthContext();
+
   return (
     <div className="App">
       <Navbar />
 
       <PagesContainer>
         <Routes>  
-          <Route path='/' element={<Home />} />
+          {user && (
+            <Route path='/' element={<Home />} />
+          )}
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
         </Routes>

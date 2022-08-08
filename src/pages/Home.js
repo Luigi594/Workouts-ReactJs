@@ -4,17 +4,23 @@ import axios from '../axios';
 import WorkoutDetails from '../components/WorkoutDetails';
 import WorkoutForm from '../components/WorkoutForm';
 import { useWorkoutsContext } from '../hooks/useWorkoutContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 import FlipMove from 'react-flip-move';
 
 function Home() {
 
   const { workouts, dispatch } = useWorkoutsContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
 
     async function getWorkouts(){
 
-        await axios.get("/api/workouts")
+        await axios.get("/api/workouts", {
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          }
+        })
         .then((response) => {
 
           if(response.status === 200){
@@ -27,9 +33,13 @@ function Home() {
         })
     }
 
-    getWorkouts();
+    // if we have a user fetch all the workouts
+    // if it's not, don't execute the function
+    if(user){
+      getWorkouts();
+    }
 
-  }, [dispatch]) 
+  }, [dispatch, user]) 
   
   
   return (
