@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
@@ -17,11 +17,15 @@ function App() {
 
       <PagesContainer>
         <Routes>  
-          {user && (
-            <Route path='/' element={<Home />} />
-          )}
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
+
+          {/** if we have an user redirect to the home page, if it's not go to the login 
+           * 
+           * The same logic to the other ones to protect the routes in react
+          */}
+
+          <Route path='/' element={ user ? <Home /> : <Navigate to={"/login"} /> } /> 
+          <Route path='/login' element={ !user ? <Login /> : <Navigate to={"/"} /> } />
+          <Route path='/signup' element={ !user ? <SignUp /> : <Navigate to={"/"} /> } />
         </Routes>
       </PagesContainer>
     </div>
